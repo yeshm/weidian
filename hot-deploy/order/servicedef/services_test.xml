@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,7 +18,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-component component-location="order"/>
-</component-loader>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>OFBIZ Test Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="testCreatePersonService" default-entity-name="Person" engine="groovy"
+             location="component://order/script/org/miniofbiz/test/PersonTestServices.groovy" invoke="testCreatePersonService" auth="false">
+        <implements service="testServiceInterface"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+    </service>
+
+</services>

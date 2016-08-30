@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the Order Component." permissionId="ORDER_VIEW"/>
+    <SecurityPermission description="Create operations in the Order Component." permissionId="ORDER_CREATE"/>
+    <SecurityPermission description="Update operations in the Order Component." permissionId="ORDER_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Order Component." permissionId="ORDER_DELETE"/>
+    <SecurityPermission description="ALL operations in the Order Component." permissionId="ORDER_ADMIN"/>
+</entity-engine-xml>
