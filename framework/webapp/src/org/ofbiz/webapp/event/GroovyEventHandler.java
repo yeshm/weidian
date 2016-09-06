@@ -20,34 +20,20 @@ package org.ofbiz.webapp.event;
 
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.Script;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.runtime.InvokerHelper;
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.*;
+import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 import javax.script.ScriptContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.runtime.InvokerHelper;
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.base.util.ScriptHelper;
-import org.ofbiz.base.util.ScriptUtil;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.webapp.control.ConfigXMLReader.Event;
-import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+import java.util.*;
 
 public class GroovyEventHandler implements EventHandler {
 
@@ -89,10 +75,7 @@ public class GroovyEventHandler implements EventHandler {
     }
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        boolean beganTransaction = false;
         try {
-            beganTransaction = TransactionUtil.begin();
-
             Map<String, Object> context = new HashMap<String, Object>();
             context.put("request", request);
             context.put("response", response);
@@ -145,12 +128,6 @@ public class GroovyEventHandler implements EventHandler {
             return (String) result;
         } catch (Exception e) {
             throw new EventHandlerException("Groovy Event Error", e);
-        } finally {
-            try {
-                TransactionUtil.commit(beganTransaction);
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
-            }
         }
     }
 }

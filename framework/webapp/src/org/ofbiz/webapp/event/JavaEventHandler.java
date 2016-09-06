@@ -28,8 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
@@ -82,7 +80,6 @@ public class JavaEventHandler implements EventHandler {
     }
 
     private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class<?>[] paramTypes, Object[] params) throws EventHandlerException {
-        boolean beganTransaction = false;
         if (eventClass == null) {
             throw new EventHandlerException("Error invoking event, the class " + eventPath + " was not found");
         }
@@ -92,7 +89,6 @@ public class JavaEventHandler implements EventHandler {
 
         Debug.logVerbose("[Processing]: JAVA Event", module);
         try {
-            beganTransaction = TransactionUtil.begin();
             Method m = eventClass.getMethod(eventMethod, paramTypes);
             String eventReturn = (String) m.invoke(null, params);
 
@@ -111,12 +107,6 @@ public class JavaEventHandler implements EventHandler {
         } catch (Exception e) {
             Debug.logError(e, "Problems Processing Event", module);
             throw new EventHandlerException("Problems processing event: " + e.toString(), e);
-        } finally {
-            try {
-                TransactionUtil.commit(beganTransaction);
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
-            }
         }
     }
 }
