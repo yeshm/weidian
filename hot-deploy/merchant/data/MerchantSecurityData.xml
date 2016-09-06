@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <!--组件基本权限-->
+    <SecurityPermission description="View operations in the Merchant Component." permissionId="MERCHANT_VIEW"/>
+
+    <!-- 订单 -->
+    <SecurityPermission description="订单" permissionId="ORDER" sequenceNum="3" componentId="merchant" permissionLevel="1"/>
+
+    <SecurityPermission description="订单管理" permissionId="ORDER_MANAGE" parentPermissionId="ORDER" sequenceNum="1" componentId="merchant" permissionLevel="2"/>
+    <SecurityPermission description="待发货订单" permissionId="ORDER_PAID" parentPermissionId="ORDER_MANAGE" menuLinkUrl="listOrder" sequenceNum="1" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="订单批量发货" permissionId="ORDER_BATCH_SEND" parentPermissionId="ORDER_MANAGE" menuLinkUrl="orderBatchSend" sequenceNum="2" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="全部订单" permissionId="ORDER_ALL" parentPermissionId="ORDER_MANAGE" menuLinkUrl="listOrder" sequenceNum="3" componentId="merchant" permissionLevel="3"/>
+
+    <SecurityPermission description="代理管理" permissionId="AGENT_MANAGE" parentPermissionId="ORDER" sequenceNum="2" componentId="merchant" permissionLevel="2"/>
+    <SecurityPermission description="代理列表" permissionId="AGENT_LIST" parentPermissionId="AGENT_MANAGE" menuLinkUrl="listAgent" sequenceNum="1" componentId="merchant" permissionLevel="3"/>
+
+    <!-- 设置 -->
+    <SecurityPermission description="设置" permissionId="SETTING" sequenceNum="21" componentId="merchant" permissionLevel="1" isNewMenuGroup="Y"/>
+
+    <SecurityPermission description="账号设置" permissionId="SETTING_ACCOUNT" parentPermissionId="SETTING" sequenceNum="1" componentId="merchant" permissionLevel="2"/>
+    <SecurityPermission description="资料修改" permissionId="SETTING_ACCOUNT_PERSON" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="editProfile" sequenceNum="1" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="密码修改" permissionId="SETTING_ACCOUNT_PASSWORD" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="updatePassword" sequenceNum="2" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="管理员" permissionId="SETTING_ACCOUNT_USER_LOGIN" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listUserLogin" sequenceNum="3" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="权限组" permissionId="SETTING_ACCOUNT_SECURITY_GROUP" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listSecurityGroup" sequenceNum="4" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="操作日志" permissionId="SETTING_ACCOUNT_OPERATE_LOG" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listUserOperateLog" sequenceNum="5" componentId="merchant" permissionLevel="3"/>
+
+    <SecurityPermission description="系统设置" permissionId="SETTING_SYSTEM" parentPermissionId="SETTING" sequenceNum="2" componentId="merchant" permissionLevel="2"/>
+    <SecurityPermission description="微店开发账号" permissionId="SETTING_SYSTEM_WEI_DIAN_OPEN" parentPermissionId="SETTING_SYSTEM" menuLinkUrl="editWeiDian" sequenceNum="3" componentId="merchant" permissionLevel="3"/>
+    <SecurityPermission description="默认发货信息" permissionId="SETTING_DEFAULT_SENDER_INFO" parentPermissionId="SETTING_SYSTEM" menuLinkUrl="editDefaultSenderInfo" sequenceNum="4" componentId="merchant" permissionLevel="3"/>
+
+    <SecurityGroup groupId="MERCHANT_ADMIN" description="商家安全组"/>
+
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="MERCHANT_VIEW"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="ORDER"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="ORDER_MANAGE"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="ORDER_PAID"/>
+    <!--<SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="ORDER_BATCH_SEND"/>-->
+
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="AGENT_MANAGE"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="AGENT_LIST"/>
+
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT_PERSON"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT_PASSWORD"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT_USER_LOGIN"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT_SECURITY_GROUP"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_ACCOUNT_OPERATE_LOG"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_SYSTEM"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_SYSTEM_WEI_DIAN_OPEN"/>
+    <SecurityGroupPermission groupId="MERCHANT_ADMIN" permissionId="SETTING_DEFAULT_SENDER_INFO"/>
+
+</entity-engine-xml>

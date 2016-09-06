@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <description>Merchant Component Site Configuration File</description>
+    
+    <request-map uri="listFileUpload">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listFileUpload"/>
+    </request-map>
+    
+    <request-map uri="gridFileUpload">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/fileupload/FileUploadEvents.groovy" invoke="gridFileUpload"/>
+        <response name="success" type="request" value="gridResponse"/>
+        <response name="error" type="request" value="gridResponse"/>
+    </request-map>
+
+    <view-map name="listFileUpload" type="screen" page="component://merchant/widget/FileUploadScreens.xml#listFileUpload"/>
+</site-conf>

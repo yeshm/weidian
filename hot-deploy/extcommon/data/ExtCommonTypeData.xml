@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- User Operate Log Type -->
+    <EnumerationType description="User Operate Log Type" enumTypeId="USER_OPERATE_LOG" parentTypeId="" hasTable="N"/>
+    <Enumeration description="新增" enumId="UOLT_CREATE" enumCode="CREATE" enumTypeId="USER_OPERATE_LOG" sequenceId="01"/>
+    <Enumeration description="删除" enumId="UOLT_DELETE" enumCode="DELETE" enumTypeId="USER_OPERATE_LOG" sequenceId="02"/>
+    <Enumeration description="修改" enumId="UOLT_UPDATE" enumCode="UPDATE" enumTypeId="USER_OPERATE_LOG" sequenceId="03"/>
+    <Enumeration description="登入" enumId="UOLT_LOGIN" enumCode="LOGIN" enumTypeId="USER_OPERATE_LOG" sequenceId="04"/>
+    <Enumeration description="退出" enumId="UOLT_LOGOUT" enumCode="LOGOUT" enumTypeId="USER_OPERATE_LOG" sequenceId="05"/>
+    <Enumeration description="上传" enumId="UOLT_UPLOAD" enumCode="UPLOAD" enumTypeId="USER_OPERATE_LOG" sequenceId="06"/>
+    <Enumeration description="下载" enumId="UOLT_DOWNLOAD" enumCode="DOWNLOAD" enumTypeId="USER_OPERATE_LOG" sequenceId="07"/>
+
+    <StatusType description="公共状态" hasTable="N" parentTypeId="" statusTypeId="COMMON_STATUS"/>
+    <StatusItem description="禁用" sequenceId="01" statusCode="DISABLED " statusId="COMMON_DISABLED" statusTypeId="COMMON_STATUS"/>
+    <StatusItem description="启用" sequenceId="02" statusCode="ENABLED" statusId="COMMON_ENABLED" statusTypeId="COMMON_STATUS"/>
+    <StatusItem description="删除" sequenceId="03" statusCode="DELETED" statusId="COMMON_DELETED" statusTypeId="COMMON_STATUS"/>
+</entity-engine-xml>

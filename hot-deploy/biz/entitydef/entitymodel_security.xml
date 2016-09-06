@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+
+    <!-- 扩展SecurityPermission -->
+    <extend-entity entity-name="SecurityPermission">
+        <field name="componentId" type="id">
+            <description>权限作用组件</description>
+        </field>
+        <field name="permissionLevel" type="numeric">
+            <description>菜单级别【1为一级菜单，2为二级菜单，3为3级菜单】</description>
+        </field>
+        <field name="parentPermissionId" type="id-long-ne"/>
+        <field name="sequenceNum" type="numeric"/>
+        <field name="menuLinkUrl" type="url"/>
+        <field name="isNewMenuGroup" type="indicator">
+            <description>是否开始新的菜单组，是:Y,否:N</description>
+        </field>
+    </extend-entity>
+
+    <!-- 扩展SecurityGroup，添加状态 -->
+    <extend-entity entity-name="SecurityGroup">
+        <field name="statusId" type="id"/>
+        <relation type="one" fk-name="SECURITY_GROUP_SI" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </extend-entity>
+
+    <view-entity entity-name="BizUserLoginListView" package-name="">
+        <description>账号列表视图</description>
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
+        <member-entity entity-alias="SG" entity-name="SecurityGroup"/>
+
+        <alias name="userLoginId" entity-alias="UL"/>
+        <alias name="enabled" entity-alias="UL"/>
+        <alias name="createdStamp" entity-alias="UL"/>
+        <alias name="description" entity-alias="SG"/>
+        <alias name="groupId" entity-alias="ULSG"/>
+        <alias name="fromDate" entity-alias="ULSG"/>
+        <alias name="thruDate" entity-alias="ULSG"/>
+
+        <view-link entity-alias="UL" rel-entity-alias="ULSG">
+            <key-map field-name="userLoginId"/>
+        </view-link>
+        <view-link entity-alias="ULSG" rel-entity-alias="SG">
+            <key-map field-name="groupId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="BizSecurityGroupPermissionView" package-name="">
+        <description>安全组权限详情</description>
+        <member-entity entity-alias="SGP" entity-name="SecurityGroupPermission"/>
+        <member-entity entity-alias="SP" entity-name="SecurityPermission"/>
+        <alias-all entity-alias="SP"/>
+        <alias name="groupId" entity-alias="SGP"/>
+        <alias name="groupPermissionId" field="permissionId" entity-alias="SGP"/>
+
+        <view-link entity-alias="SGP" rel-entity-alias="SP">
+            <key-map field-name="permissionId" rel-field-name="permissionId"/>
+        </view-link>
+    </view-entity>
+</entitymodel>

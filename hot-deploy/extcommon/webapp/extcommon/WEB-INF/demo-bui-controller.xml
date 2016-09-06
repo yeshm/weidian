@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <description>extcommon Component Site Configuration File</description>
+
+    <request-map uri="demoBuiPage">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="demoBuiPage"/>
+    </request-map>
+
+    <view-map name="demoBuiPage" type="screen" page="component://extcommon/widget/DemoBuiScreens.xml#demoBuiPage"/>
+
+</site-conf>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-engine-xml>
+    <EnumerationType description="系统配置类型" enumTypeId="SYSTEM_CONFIG_TYPE" hasTable="N"/>
+
+    <Enumeration description="七牛存储AccessKey" enumCode="QN_ACCESS_KEY" enumId="QN_ACCESS_KEY" sequenceId="01" enumTypeId="SYSTEM_CONFIG_TYPE"/>
+    <Enumeration description="七牛存储SecretKey" enumCode="QN_SECRET_KEY" enumId="QN_SECRET_KEY" sequenceId="02" enumTypeId="SYSTEM_CONFIG_TYPE"/>
+    <Enumeration description="七牛存储BucketName" enumCode="QN_BUCKET_NAME" enumId="QN_BUCKET_NAME" sequenceId="03" enumTypeId="SYSTEM_CONFIG_TYPE"/>
+    <Enumeration description="七牛存储UrlPrefix" enumCode="QN_URL_PREFIX" enumId="QN_URL_PREFIX" sequenceId="03" enumTypeId="SYSTEM_CONFIG_TYPE"/>
+    <Enumeration description="七牛存储启用" enumCode="QN_ENABLE" enumId="QN_ENABLE" sequenceId="08" enumTypeId="SYSTEM_CONFIG_TYPE"/>
+
+</entity-engine-xml>

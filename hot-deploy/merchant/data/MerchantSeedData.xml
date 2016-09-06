@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <BizOrderType orderTypeId="WEI_DIAN" description="微店订单"/>
+    <BizOrderType orderTypeId="MANUAL" description="线下订单"/>
+
+    <!-- Order Status -->
+    <StatusType description="订单状态" hasTable="N" parentTypeId="" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="已付款" sequenceId="02" statusCode="PAY" statusId="ORDER_PAY" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="已发货" sequenceId="03" statusCode="FINISH" statusId="ORDER_FINISH" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="退款" sequenceId="04" statusCode="REFUND" statusId="ORDER_REFUND" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="订单关闭" sequenceId="05" statusCode="CLOSE" statusId="ORDER_CLOSE" statusTypeId="ORDER_STATUS"/>
+
+</entity-engine-xml>

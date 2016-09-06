@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="editProfile">
+        <section>
+            <actions>
+                <script location="component://merchant/script/org/weidian/merchant/setting/SettingActions.groovy#editProfile"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/editProfile.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 权限组管理 -->
+    <screen name="listSecurityGroup">
+        <section>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/listSecurityGroup.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editSecurityGroup">
+        <section>
+            <actions>
+                <script location="component://merchant/script/org/weidian/merchant/setting/SecurityActions.groovy#editSecurityGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/editSecurityGroup.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 管理账号 -->
+    <screen name="listUserLogin">
+        <section>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/listUserLogin.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editUserLogin">
+        <section>
+            <actions>
+                <script location="component://merchant/script/org/weidian/merchant/setting/SecurityActions.groovy#editUserLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/editUserLogin.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 微店开发账号设定 -->
+    <screen name="editWeiDian">
+        <section>
+            <actions>
+                <script location="component://merchant/script/org/weidian/merchant/setting/SettingActions.groovy#editWeiDian"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/editWeiDian.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="editDefaultSenderInfo">
+        <section>
+            <actions>
+                <script location="component://merchant/script/org/weidian/merchant/setting/SettingActions.groovy#editDefaultSenderInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://merchant/webapp/merchant/setting/editDefaultSenderInfo.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

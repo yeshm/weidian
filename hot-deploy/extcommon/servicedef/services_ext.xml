@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Ext Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="createUserOperateLog" engine="groovy" default-entity-name="ExtUserOperateLog" auth="false"
+             location="component://extcommon/script/org/ofbiz/ext/common/UserOperateLogServices.groovy"
+             invoke="createUserOperateLog">
+        <description>创建用户操作日志【 这个service有个场景需要特殊处理，用户修改自己密码的时候，传入的userLogin因为密码已经被修改，不被service引擎承认，因此需设定auth="false"
+            手动传入操作人的userLoginId，operateUserLoginId必填】
+        </description>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="false"/>
+        <override name="operateDate" type="String" mode="IN" optional="true"/>
+        <override name="permissionId" type="String" mode="IN" optional="true"/>
+        <override name="operateUserLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="bizSaveSystemConfig" engine="groovy" auth="false" default-entity-name="ExtSystemConfig"
+             location="component://extcommon/script/org/ofbiz/ext/common/SystemConfigServices.groovy"
+             invoke="saveSystemConfig">
+        <description>保存系统配置</description>
+        <attribute name="configTypeEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="configValue" type="String" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="configId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+</services>

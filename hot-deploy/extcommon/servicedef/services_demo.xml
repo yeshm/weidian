@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>ExtCommon Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <!--外键锁演示-->
+    <service name="bizDemoPKLockOne" engine="groovy" location="component://extcommon/script/org/ofbiz/demo/DemoServices.groovy" invoke="pkLockOne"/>
+    <service name="bizDemoPKLockTwo" engine="groovy" location="component://extcommon/script/org/ofbiz/demo/DemoServices.groovy" invoke="pkLockTwo"/>
+    <service name="bizDemoPKLockThree" engine="groovy" location="component://extcommon/script/org/ofbiz/demo/DemoServices.groovy" invoke="pkLockThree"/>
+    <service name="bizDemoPKLockFour" engine="groovy" location="component://extcommon/script/org/ofbiz/demo/DemoServices.groovy" invoke="pkLockFour"/>
+    <!--外键锁演示-->
+
+    <!--properties vs entity cache 性能比较    -->
+    <service name="propertiesVsEntityCache" engine="groovy" transaction-timeout="60000"
+             location="component://extcommon/script/org/ofbiz/demo/DemoServices.groovy" invoke="propertiesVsEntityCache"/>
+
+</services>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.styleSheets[+0]" value="/ext/assets/bui/1.0.13/css/dpl-min.css"/>
+                <set field="layoutSettings.styleSheets[+1]" value="/ext/assets/bui/1.0.13/css/bui-min.css"/>
+                <set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/main.css"/>
+
+                <!--<set field="layoutSettings.styleSheets[+0]" value="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+1]" value="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/main.css"/>-->
+
+                <!--<set field="layoutSettings.javaScripts[+0]" value="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"/>-->
+                <!--<set field="layoutSettings.javaScripts[+1]" value="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"/>-->
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.10.2.min.js"/>
+                <set field="layoutSettings.javaScripts[+1]" value="/ext/assets/bui/1.0.13/seed-min.js?t=201401242343"/>
+                <set field="layoutSettings.javaScripts[+2]" value="/ext/assets/bui/1.0.13/config.js"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/header.ftl"/></html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/footer.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="extCommonDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.styleSheets[+0]" value="/ext/assets/bui/1.0.13/css/dpl-min.css"/>
+                <set field="layoutSettings.styleSheets[+1]" value="/ext/assets/bui/1.0.13/css/bui-min.css"/>
+                <set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/main.css"/>
+
+                <!--<set field="layoutSettings.styleSheets[+0]" value="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+1]" value="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/page.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/page.css"/>-->
+
+                <!--<set field="layoutSettings.javaScripts[+0]" value="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"/>-->
+                <!--<set field="layoutSettings.javaScripts[+1]" value="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"/>-->
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.10.2.min.js"/>
+                <set field="layoutSettings.javaScripts[+1]" value="/ext/assets/bui/1.0.13/seed-min.js?t=201401242343"/>
+                <set field="layoutSettings.javaScripts[+2]" value="/ext/assets/bui/1.0.13/config.js"/>
+                <set field="layoutSettings.javaScripts[+3]" value="/ext/assets/bui/1.0.13/common/page.js"/>
+                <set field="layoutSettings.javaScripts[+4]" value="/ext/assets/js/bo.js"/>
+
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/bui/header.ftl"/></html>
+                </platform-specific>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/webcommon/includes/messages.ftl" />
+                    </html>
+                </platform-specific>
+                <container style="container">
+                    <section>
+                        <widgets>
+                            <decorator-section-include name="body"/>
+                        </widgets>
+                    </section>
+                </container>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/bui/footer.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="paging">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/common/paging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+        
+    <screen name="simplePaging">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/common/simplePaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="simpleAjaxPaging">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/common/simpleAjaxPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

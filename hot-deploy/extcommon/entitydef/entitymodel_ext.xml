@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>系统公共使用表</title>
+    <description>扩展功能公共表</description>
+    <copyright></copyright>
+    <version></version>
+
+    <extend-entity entity-name="UserLogin">
+        <field name="lastLoginIp" type="short-varchar">
+            <description>最后登入ip</description>
+        </field>
+        <field name="lastLoginDate" type="date-time">
+            <description>最后登入时间</description>
+        </field>
+        <field name="currentLoginIp" type="short-varchar">
+            <description>本次登入ip</description>
+        </field>
+        <field name="currentLoginDate" type="date-time">
+            <description>本次登入时间</description>
+        </field>
+    </extend-entity>
+
+    <entity entity-name="ExtUserOperateLog" package-name="" title="">
+        <description>用户操作日志</description>
+        <field name="operateLogId" type="id-ne"></field>
+        <field name="operateUserLoginId" type="id-vlong-ne"></field>
+        <field name="permissionId" type="id-long-ne">
+            <description>模块Id,权限模块</description>
+        </field>
+        <field name="productStoreId" type="id">
+            <description>业务归属店铺Id</description>
+        </field>
+        <field name="operateDate" type="date-time">
+            <description>操作日期</description>
+        </field>
+        <field name="comments" type="comment">
+            <description>备注信息</description>
+        </field>
+        <field name="operateIp" type="short-varchar">
+            <description>操作ip</description>
+        </field>
+        <field name="enumId" type="id">
+            <description>操作类型，新增、删除、修改、登入、退出、上传、下载</description>
+        </field>
+
+        <prim-key field="operateLogId"/>
+        <relation type="one" rel-entity-name="UserLogin">
+            <key-map field-name="operateUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="BIZ_PARTY" rel-entity-name="BizProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="SECUR_PERM" rel-entity-name="SecurityPermission">
+            <key-map field-name="permissionId"/>
+        </relation>
+        <relation type="one" fk-name="UPL_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="enumId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="ExtSystemConfig" package-name="" title="">
+        <description>系统配置</description>
+        <field name="configId" type="id-long-ne"></field>
+        <field name="configTypeEnumId" type="id"></field>
+        <field name="configValue" type="value">
+            <description>配置值</description>
+        </field>
+        <field name="sequenceNum" type="numeric">
+            <description>排序号, 数字类型</description>
+        </field>
+        <field name="fromDate" type="date-time">
+            <description>生效时间</description>
+        </field>
+        <field name="thruDate" type="date-time">
+            <description>失效时间</description>
+        </field>
+        <field name="createdDate" type="date-time"></field>
+        <field name="createdByUserLogin" type="id-vlong"></field>
+        <field name="lastModifiedDate" type="date-time"></field>
+        <field name="lastModifiedByUserLogin" type="id-vlong-ne"></field>
+
+        <prim-key field="configId"/>
+        <relation fk-name="EXT_SC_ENUM" rel-entity-name="Enumeration" type="one">
+            <key-map field-name="configTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="EXT_SC_CUL" rel-entity-name="UserLogin">
+            <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="EXT_SC_MUL" rel-entity-name="UserLogin">
+            <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="ExtSlowLog" package-name="">
+        <description>慢查询记录</description>
+        <field name="logId" type="id-ne"/>
+        <field name="entityName" type="name"/>
+        <field name="sqlText" type="very-long"/>
+        <field name="queryTotalTime" type="numeric"/>
+        <field name="createdDate" type="date-time"/>
+
+        <prim-key field="logId"/>
+    </entity>
+
+</entitymodel>

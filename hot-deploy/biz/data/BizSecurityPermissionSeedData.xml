@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+
+    <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
+
+    <SecurityGroupPermission groupId="SUPER" permissionId="SECURITY_ADMIN"/>
+
+</entity-engine-xml>

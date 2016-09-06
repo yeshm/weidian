@@ -1438,4 +1438,19 @@ under the License.
     <target name="run-install-file-in-delegator">
         <echo message="The 'run-install-file-in-delegator' command has been renamed 'load-file'; please use 'ant load-file' to load data from a given file."/>
     </target>
+
+    <!--第一次系统初始化、或者重置系统数据使用-->
+    <target name="init-data" depends="build"
+            description="Load seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <jvmarg value="-Dsolr.solr.home=${ofbiz.home.dir}/hot-deploy/solr"/>
+            <jvmarg value="-Dsolr.data.dir=${ofbiz.home.dir}/hot-deploy/solr/data"/>
+            <jvmarg value="-Dfile.encoding=UTF-8"/>
+            <arg value="install"/>
+            <arg value="readers=seed,seed-initial,ext,ext-demo"/>
+        </java>
+    </target>
 </project>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="login">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://admin/webapp/admin/login.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="main">
+        <section>
+            <actions>
+                <script location="component://admin/script/org/weidian/admin/IndexActions.groovy#main"/>
+                <script location="component://admin/script/org/weidian/admin/IndexActions.groovy#menu"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="AdminMainDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://admin/webapp/admin/main.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="index">
+        <section>
+            <actions>
+                <script location="component://admin/script/org/weidian/admin/IndexActions.groovy#index"/>
+                <script location="component://merchant/script/org/weidian/merchant/product/ProductActions.groovy#listProduct"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="AdminPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://admin/webapp/admin/index.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

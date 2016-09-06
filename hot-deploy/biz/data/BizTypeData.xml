@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <EnumerationType description="SKU名称" enumTypeId="SKU_NAME" hasTable="N" parentTypeId=""/>
+    <Enumeration description="红柚" enumCode="HY2" enumId="SKU_HY2" sequenceId="01" enumTypeId="SKU_NAME"/>
+    <Enumeration description="三红" enumCode="SH2" enumId="SKU_SH2" sequenceId="02" enumTypeId="SKU_NAME"/>
+
+    <!-- 处理状态 -->
+    <StatusType description="处理状态" hasTable="N" parentTypeId="" statusTypeId="PROCESS_STATUS"/>
+    <StatusItem description="等待处理" sequenceId="01" statusCode="PROCESS_CREATED" statusId="PROCESS_CREATED" statusTypeId="PROCESS_STATUS"/>
+    <StatusItem description="处理中" sequenceId="02" statusCode="PROCESS_PENDING" statusId="PROCESS_PENDING" statusTypeId="PROCESS_STATUS"/>
+    <StatusItem description="处理失败" sequenceId="03" statusCode="PROCESS_FAILED" statusId="PROCESS_FAILED" statusTypeId="PROCESS_STATUS"/>
+    <StatusItem description="已完成" sequenceId="04" statusCode="PROCESS_COMPLETED" statusId="PROCESS_COMPLETED" statusTypeId="PROCESS_STATUS"/>
+    <StatusItem description="已取消" sequenceId="05" statusCode="PROCESS_CANCELLED" statusId="PROCESS_CANCELLED" statusTypeId="PROCESS_STATUS"/>
+
+    <EnumerationType description="文件上传类型" enumTypeId="FILE_UPLOAD_ENUM" hasTable="N" parentTypeId=""/>
+    <Enumeration description="订单批量发货" enumId="FLUD_ORDER_BTCH_SEND" sequenceId="01" enumTypeId="FILE_UPLOAD_ENUM"/>
+</entity-engine-xml>

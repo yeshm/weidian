@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="demoExtPage">
+        <section>
+            <widgets>
+                <decorator-screen name="demoBuiPageDecorator" location="component://extcommon/widget/DemoBuiScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://extcommon/webapp/extcommon/demo/ext/${requestParameters.page}.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="demoExtPdfExport">
+        <section>
+            <actions>
+                <entity-condition entity-name="Person" list="personList">
+                    <order-by field-name="-partyId"></order-by>
+                    <limit-range start="0" size="100"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo>
+                        <html-template location="component://extcommon/webapp/extcommon/demo/ext/demoExtPdfExport.fo.ftl"/>
+                    </xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

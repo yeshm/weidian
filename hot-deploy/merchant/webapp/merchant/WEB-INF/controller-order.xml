@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <description>Order Component Site Configuration File</description>
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+
+    <!-- Request Mappings -->
+    <request-map uri="listOrder">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listOrder"/>
+    </request-map>
+    <request-map uri="gridOrder">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/OrderEvents.groovy" invoke="gridOrder"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="createOrder">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="createOrder"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="updateOrder">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/OrderEvents.groovy" invoke="updateOrder"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="syncWeiDianOrder">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/OrderEvents.groovy" invoke="syncWeiDianOrder"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="createManualOrder">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/OrderEvents.groovy" invoke="createManualOrder"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="exportPaidOrderDeliveryAddress">
+        <description>导出待发货订单地址</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/OrderEvents.groovy" invoke="exportPaidOrderDeliveryAddress"/>
+        <response name="success" type="none"/>
+    </request-map>
+
+    <request-map uri="orderBatchSend">
+        <security auth="true" https="false"/>
+        <response name="success" type="view" value="orderBatchSend"/>
+    </request-map>
+    <request-map uri="listOrderSend">
+        <security auth="true" https="false"/>
+        <response name="success" type="view" value="listOrderSend"/>
+    </request-map>
+    <request-map uri="gridOrderSend">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/com/juweitu/bonn/merchant/uploaddata/UploadDataEvents.groovy" invoke="gridOrderSend"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="createOrderSendDataUploadTask">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/com/juweitu/bonn/merchant/uploaddata/UploadDataEvents.groovy" invoke="createOrderSendDataUploadTask"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="listAgent">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listAgent"/>
+    </request-map>
+    <request-map uri="gridAgent">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/AgentEvents.groovy" invoke="gridAgent"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="saveAgent">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/AgentEvents.groovy" invoke="saveAgent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="getAgent">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/AgentEvents.groovy" invoke="getAgent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="updateAgent">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="updateAgent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="deleteAgent">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/order/AgentEvents.groovy" invoke="deleteAgent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- View Mappings -->
+    <view-map name="listOrder" type="screen" page="component://merchant/widget/OrderScreens.xml#listOrder"/>
+    <view-map name="orderBatchSend" type="screen" page="component://merchant/widget/OrderScreens.xml#orderBatchSend"/>
+    <view-map name="listAgent" type="screen" page="component://merchant/widget/OrderScreens.xml#listAgent"/>
+</site-conf>

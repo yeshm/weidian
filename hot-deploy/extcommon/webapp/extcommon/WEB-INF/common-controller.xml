@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>extcommon Component Site Configuration File</description>
+
+    <request-map uri="login" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
+        <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
+    <request-map uri="logout" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <response name="success" type="request" value="clearAutoLogin"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
+    <request-map uri="clearAutoLogin" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/SetupEvents.groovy" invoke="clearAutoLogin"/>
+        <response name="success" type="request-redirect" value="main"/>
+    </request-map>
+
+    <!-- ajax -->
+    <request-map uri="jsonResponse" track-serverhit="false" track-visit="false">
+        <security direct-request="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CommonEvents.groovy" invoke="jsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+    <request-map uri="gridResponse" track-serverhit="false" track-visit="false">
+        <security direct-request="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CommonEvents.groovy" invoke="gridResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+    <request-map uri="appJsonResponse" track-serverhit="false" track-visit="false">
+        <security direct-request="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CommonEvents.groovy" invoke="appJsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+
+    <request-map uri="statisticsJsonResponse" track-serverhit="false" track-visit="false">
+        <security direct-request="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CommonEvents.groovy" invoke="statisticsJsonResponse"/>
+        <response name="success" type="none"/>
+    </request-map>
+
+    <!-- upload -->
+    <request-map uri="omUploadFile" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UploadEvents.groovy" invoke="omUpload"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="keUploadFile" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UploadEvents.groovy" invoke="keUploadFile"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="multiUploadFile" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UploadEvents.groovy" invoke="multiUploadFile"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="buiUpload" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UploadEvents.groovy" invoke="buiUpload"/>
+        <response name="success" type="none"/>
+    </request-map>
+
+    <!-- form validate -->
+    <request-map uri="validateUserLoginId" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/FormValidateEvents.groovy" invoke="validateUserLoginId"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="gridContent" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/content/ContentEvents.groovy" invoke="gridContent"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+
+    <request-map uri="editSimpleContent" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/content/ContentEvents.groovy" invoke="editSimpleContent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editContent">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editContent"/>
+    </request-map>
+
+    <request-map uri="editExtendContent">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editExtendContent"/>
+    </request-map>
+
+    <request-map uri="deleteExtendContent" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/content/ContentEvents.groovy" invoke="deleteExtendContent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="saveExtendContent" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/content/ContentEvents.groovy" invoke="saveExtendContent"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 资料修改 -->
+    <request-map uri="updatePartyProfile">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="updatePartyProfile"/>
+    </request-map>
+    <request-map uri="doUpdatePartyProfile" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/account/PartyEvents.groovy" invoke="doUpdatePartyProfile"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 密码修改 -->
+    <request-map uri="updatePassword">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="updatePassword"/>
+    </request-map>
+    <request-map uri="doUpdatePassword" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UserLoginEvents.groovy" invoke="updatePassword"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="resetPassword" track-serverhit="false" track-visit="false">
+        <description>重置密码，管理员重置其他用户密码</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/UserLoginEvents.groovy" invoke="resetPassword"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="togglePartyStatus" track-serverhit="false" track-visit="false">
+        <description>修改状态，冻结，解冻</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/PartyEvents.groovy" invoke="togglePartyStatus"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 操作日志 -->
+    <request-map uri="listUserOperateLog">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listUserOperateLog"/>
+    </request-map>
+    <request-map uri="gridUserOperateLog" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/account/UserOperateLogEvents.groovy" invoke="gridUserOperateLog"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+
+    <!-- 验证码 -->
+    <request-map uri="captcha" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CaptchaEvents.groovy" invoke="generateCaptcha"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+    <request-map uri="checkCaptcha" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/common/CaptchaEvents.groovy" invoke="checkCaptcha"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!--万能表单-->
+    <request-map uri="defineForm">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="defineForm"/>
+    </request-map>
+    <request-map uri="saveDefineForm" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/defineform/DefineFormEvents.groovy" invoke="saveDefineForm"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="gridRichMediaDefineFormStatistics" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/defineform/DefineFormEvents.groovy" invoke="gridRichMediaDefineFormStatistics"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <!--展示数据库中所有图片-->
+    <request-map uri="listImageOnHand" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getAllImageOnhand"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!--展示数据库中的图文素材-->
+    <request-map uri="listMaterialRichMediaByType" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="listMaterialRichMediaByType"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!--展示数据库中的商品-->
+    <request-map uri="getProductList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getProductList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!--展示数据库中的商品分组-->
+    <request-map uri="getProducGrouptList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getProducGrouptList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!-- 展示数据库中的名片-->
+    <request-map uri="getNameCardList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getNameCardList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!-- 展示数据库中的微预约-->
+    <request-map uri="getReserveList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getReserveList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <!-- 展示数据库中的全景图-->
+    <request-map uri="getPanoramaList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getPanoramaList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 展示数据库中送礼活动-->
+    <request-map uri="getHandselActivityList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getHandselActivityList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 展示数据库中的低价购活动-->
+    <request-map uri="getLowCostActivityList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getLowCostActivityList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 展示数据库中的猜红包活动-->
+    <request-map uri="getGuessRedPackActivityList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getGuessRedPackActivityList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 展示数据库中的可用的微信红包-->
+    <request-map uri="getRedPackList" track-serverhit="false" track-visit="false">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://extcommon/script/org/ofbiz/ext/image/ImagePickerEvents.groovy" invoke="getRedPackList"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+
+    <view-map name="ajaxLogin" page="/ajaxNotLoggedIn.jsp"/>
+
+    <view-map name="editContent" type="screen" page="component://extcommon/widget/ContentScreens.xml#editContent"/>
+    <view-map name="editExtendContent" type="screen" page="component://extcommon/widget/ContentScreens.xml#editExtendContent"/>
+    <view-map name="updatePassword" type="screen" page="component://extcommon/widget/ExtCommonScreens.xml#updatePassword"/>
+    <view-map name="listUserOperateLog" type="screen" page="component://extcommon/widget/ExtCommonScreens.xml#listUserOperateLog"/>
+    <view-map name="updatePartyProfile" type="screen" page="component://extcommon/widget/ExtCommonScreens.xml#updatePartyProfile"/>
+    <view-map name="defineForm" type="screen" page="component://extcommon/widget/ExtCommonScreens.xml#defineForm"/>
+
+</site-conf>

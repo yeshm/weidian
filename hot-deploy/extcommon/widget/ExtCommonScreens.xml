@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="updatePassword">
+        <section>
+            <widgets>
+                <decorator-screen name="ExtPageDecorator" location="component://extcommon/widget/BuiCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://extcommon/webapp/extcommon/account/updatePassword.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="listUserOperateLog">
+        <section>
+            <widgets>
+                <decorator-screen name="ExtPageDecorator" location="component://extcommon/widget/BuiCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://extcommon/webapp/extcommon/account/listUserOperateLog.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="updatePartyProfile">
+        <section>
+            <actions>
+                <script location="component://extcommon/webapp/extcommon/WEB-INF/actions/account/updatePartyProfile.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="extCommonDecorator" location="component://extcommon/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <section>
+                                <condition>
+                                    <if-compare field="partyRole" operator="equals" value="STUDIO"/>
+                                </condition>
+                                <widgets>
+                                    <platform-specific>
+                                        <html>
+                                            <html-template location="component://extcommon/webapp/extcommon/account/updateStudioPartyProfile.ftl"/>
+                                        </html>
+                                    </platform-specific>
+                                </widgets>
+                                <fail-widgets>
+                                    <section>
+                                        <condition>
+                                            <if-compare field="partyRole" operator="equals" value="CUSTOMER"/>
+                                        </condition>
+                                        <widgets>
+                                            <platform-specific>
+                                                <html>
+                                                    <html-template location="component://extcommon/webapp/extcommon/account/updateCustomerPartyProfile.ftl"/>
+                                                </html>
+                                            </platform-specific>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <section>
+                                                <condition>
+                                                    <if-compare field="partyRole" operator="equals" value="AGENT"/>
+                                                </condition>
+                                                <widgets>
+                                                    <platform-specific>
+                                                        <html>
+                                                            <html-template location="component://extcommon/webapp/extcommon/account/updateAgentPartyProfile.ftl"/>
+                                                        </html>
+                                                    </platform-specific>
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <section>
+                                                        <condition>
+                                                            <if-compare field="partyRole" operator="equals" value="COMPANY"/>
+                                                        </condition>
+                                                        <widgets>
+                                                            <platform-specific>
+                                                                <html>
+                                                                    <html-template location="component://extcommon/webapp/extcommon/account/updateCompanyPartyProfile.ftl"/>
+                                                                </html>
+                                                            </platform-specific>
+                                                        </widgets>
+                                                    </section>
+                                                </fail-widgets>
+                                            </section>
+                                        </fail-widgets>
+                                    </section>
+                                </fail-widgets>
+                            </section>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="defineForm">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/defineform/DefineFormActions.groovy#defineForm"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="MerchantPageDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://extcommon/webapp/extcommon/defineform/defineForm.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--单图文素材分页内容-->
+    <screen name="pagingMaterial">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/mediaMaterialPicker/singleMediaMaterialPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--多图文素材分页内容-->
+    <screen name="pagingMultiMaterial">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/mediaMaterialPicker/multiMediaMaterialPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--公共分页-->
+    <screen name="commonPaging">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingContent"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/pagingContent.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取图片内容列表-->
+    <screen name="imageList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/imagePicker/imagePaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取商品内容列表-->
+    <screen name="pagingProduct">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/productPicker/productPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取商品分组内容列表-->
+    <screen name="pagingProductGroup">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/productPicker/productGroupPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取微名片内容列表-->
+    <screen name="nameCardList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/nameCardPicker/nameCardPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取微预约内容列表-->
+    <screen name="reserveList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/reservePicker/reservePaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取360全景图内容列表-->
+    <screen name="panoramaList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/panoramaPicker/panoramaPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取产品活动列表-->
+    <screen name="handselActivityList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/activityPicker/handselActivityPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取低价购活动列表-->
+    <screen name="lowCostActivityList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/activityPicker/lowCostActivityPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 获取猜红包活动列表-->
+    <screen name="guessRedPackActivityList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/activityPicker/guessRedPackActivityPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- 红包列表-->
+    <screen name="redPackList">
+        <section>
+            <actions>
+                <script location="component://extcommon/script/org/ofbiz/ext/image/MaterialPickerActions.groovy#getPagingList"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://extcommon/webapp/extcommon/includes/weixinRedPackPicker/weixinRedPackPaging.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

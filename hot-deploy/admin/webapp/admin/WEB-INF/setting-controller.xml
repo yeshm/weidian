@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <request-map uri="editQiniuCloudConfig">
+        <description>七牛云存储设定</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editQiniuCloudConfig"/>
+    </request-map>
+    <request-map uri="saveQiniuCloudConfig">
+        <description>保存七牛配置</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="saveQiniuCloudConfig"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editSmsConfig">
+        <description>短信接口设定</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editSmsConfig"/>
+    </request-map>
+    <request-map uri="editSmsConfigConfig">
+        <description>短信接口设定</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editSmsConfigConfig"/>
+    </request-map>
+    <request-map uri="editSmsConfigSmsList">
+        <description>短信列表</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editSmsConfigSmsList"/>
+    </request-map>
+
+    <request-map uri="testSms">
+        <description>短信接口测试</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="testSms"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="querySmsBalance">
+        <description>查询短信余额</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="querySmsBalance"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="gridSmlLog">
+        <description>查询短信列表内容</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="gridSmlLog"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="syncSmsLogStatus">
+        <description>同步短信状态</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="syncSmsLogStatus"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editEmailConfig">
+        <description>邮件接口设定</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editEmailConfig"/>
+    </request-map>
+    <request-map uri="saveEmailConfig">
+        <description>邮件接口配置</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="saveEmailConfig"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="testEmail">
+        <description>邮件接口测试</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="testEmail"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editBaiduMapConfig">
+        <description>编辑百度地图接口</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editBaiduMapConfig"/>
+    </request-map>
+    <request-map uri="saveBaiduMapConfig">
+        <description>保存百度地图接口配置</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="saveBaiduMapConfig"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editExpressApiConfig">
+        <description>快递接口设定</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editExpressApiConfig"/>
+    </request-map>
+    <request-map uri="saveExpressApiConfig">
+        <description>保存快递接口配置</description>
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/setting/SettingEvents.groovy" invoke="saveExpressApiConfig"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editLoginThirdPartyConfig">
+        <description>编辑第三方登录配置</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editLoginThirdPartyConfig"/>
+    </request-map>
+    <request-map uri="editLoginThirdPartyConfigQQ">
+        <description>编辑第三方登录配置QQ</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editLoginThirdPartyConfigQQ"/>
+    </request-map>
+    <request-map uri="editLoginThirdPartyConfigSinaWeibo">
+        <description>编辑第三方登录配置新浪微博</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editLoginThirdPartyConfigSinaWeibo"/>
+    </request-map>
+    <request-map uri="editLoginThirdPartyConfigAlipay">
+        <description>编辑第三方登录配置支付宝</description>
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editLoginThirdPartyConfigAlipay"/>
+    </request-map>
+
+    <view-map name="editWeixinPaymentConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editWeixinPaymentConfig"/>
+    <view-map name="editQiniuCloudConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editQiniuCloudConfig"/>
+    <view-map name="editSmsConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editSmsConfig"/>
+    <view-map name="editSmsConfigConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editSmsConfigConfig"/>
+    <view-map name="editSmsConfigSmsList" type="screen" page="component://admin/widget/SettingScreens.xml#editSmsConfigSmsList"/>
+    <view-map name="editEmailConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editEmailConfig"/>
+    <view-map name="editBaiduMapConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editBaiduMapConfig"/>
+    <view-map name="editExpressApiConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editExpressApiConfig"/>
+    <view-map name="editLoginThirdPartyConfig" type="screen" page="component://admin/widget/SettingScreens.xml#editLoginThirdPartyConfig"/>
+    <view-map name="editLoginThirdPartyConfigQQ" type="screen" page="component://admin/widget/SettingScreens.xml#editLoginThirdPartyConfigQQ"/>
+    <view-map name="editLoginThirdPartyConfigSinaWeibo" type="screen" page="component://admin/widget/SettingScreens.xml#editLoginThirdPartyConfigSinaWeibo"/>
+    <view-map name="editLoginThirdPartyConfigAlipay" type="screen" page="component://admin/widget/SettingScreens.xml#editLoginThirdPartyConfigAlipay"/>
+</site-conf>

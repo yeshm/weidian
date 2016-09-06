@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Biz Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="bizJobRefreshWeiDianAccessToken" engine="groovy" auth="true" semaphore="fail"
+             location="component://biz/script/org/weidian/job/JobServices.groovy"
+             invoke="refreshWeiDianAccessToken">
+        <description>刷新微店AccessToken</description>
+    </service>
+
+</services>

@@ -20,5 +20,8 @@ under the License.
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-component component-location="order"/>
+    <load-component component-location="extcommon"/>
+    <load-component component-location="biz"/>
+    <load-component component-location="admin"/>
+    <load-component component-location="merchant"/>
 </component-loader>

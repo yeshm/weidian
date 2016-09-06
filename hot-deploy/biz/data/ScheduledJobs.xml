@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<!-- This is a recurring job with will check for communication events which need to be send as emails. -->
+<entity-engine-xml>
+    <TemporalExpression tempExprId="EVERY_SECOND" tempExprTypeId="FREQUENCY" description="Every Second" integer1="13" integer2="1" date1="2015-05-25 0:0:0.000"/>
+    <TemporalExpression tempExprId="EVERY_MINUTE" tempExprTypeId="FREQUENCY" description="Every Minute" integer1="12" integer2="1" date1="2015-05-25 0:0:0.000"/>
+    <TemporalExpression tempExprId="EVERY_FIVE_MINUTE" tempExprTypeId="FREQUENCY" description="Every Five Minute" integer1="12" integer2="5" date1="2015-05-25 0:0:0.000"/>
+    <TemporalExpression tempExprId="EVERY_DAY" tempExprTypeId="FREQUENCY" description="Every DAY" integer1="5" integer2="1" date1="2015-07-22 6:0:0.000"/>
+    <TemporalExpression tempExprId="11_AM_EVERY_DAY" tempExprTypeId="FREQUENCY" description="Every Day" integer1="5" integer2="1" date1="2016-01-06 11:0:0.000"/>
+    <TemporalExpression tempExprId="EVERY_HOUR" tempExprTypeId="FREQUENCY" description="Every Hour" integer1="12" integer2="60"/>
+
+    <!--自定义-周五10:50 -->
+    <TemporalExpression tempExprId="FRIDAY_H_10_M_50" tempExprTypeId="INTERSECTION" description="FRIDAY_H_10_M_50"/>
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_10_M_50" toTempExprId="DAYOFWEEK_06" />
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_10_M_50" toTempExprId="HOUR_10"/>
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_10_M_50" toTempExprId="MINUTE_50"/>
+    <!--自定义-周五11:30 -->
+    <TemporalExpression tempExprId="FRIDAY_H_11_M_30" tempExprTypeId="INTERSECTION" description="FRIDAY_HOUR_11_MINUTE_30"/>
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_11_M_30" toTempExprId="DAYOFWEEK_06" />
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_11_M_30" toTempExprId="HOUR_11"/>
+    <TemporalExpressionAssoc fromTempExprId="FRIDAY_H_11_M_30" toTempExprId="MINUTE_30"/>
+
+    <!--每分钟执行一次，刷新微店AccessToken-->
+    <JobSandbox jobId="REFRESH_ACCESS_TOKEN" jobName="Refresh WeiDian AccessToken" runTime="2000-01-01 00:00:00.000" serviceName="bizJobRefreshWeiDianAccessToken" poolId="pool" runAsUser="system" tempExprId="EVERY_FIVE_MINUTE" maxRecurrenceCount="-1"/>
+</entity-engine-xml>

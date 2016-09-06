@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+
+    <description>Root Component Site Configuration File</description>
+
+    <preprocessor>
+        <event type="groovy" path="component://biz/script/org/weidian/root/RootEvents.groovy" invoke="checkDomainBind"/>
+    </preprocessor>
+
+</site-conf>

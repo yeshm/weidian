@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of Biz Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+
+    <entity entity-name="BizProductStore"
+            package-name="org.weidian.order.store"
+            title="Product Store Entity"
+            default-resource-name="ProductEntityLabels">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="storeName" type="name"/>
+        <field name="companyName" type="name"/>
+        <field name="telephone" type="tel-number"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+        <prim-key field="productStoreId"/>
+    </entity>
+
+    <extend-entity entity-name="UserLogin">
+        <field name="productStoreId" type="id"/>
+        <relation type="one" fk-name="UL_PS" rel-entity-name="BizProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </extend-entity>
+
+    <entity entity-name="BizWeiDian"
+            package-name="org.weidian.order.store"
+            title="WeiDian Entity">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="appkey" type="value"/>
+        <field name="secret" type="value"/>
+        <field name="accessToken" type="value">
+            <description>访问开发平台api的token</description>
+        </field>
+        <field name="accessTokenExpirationDate" type="date-time">
+            <description>访问开发平台api的token的失效时间</description>
+        </field>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+
+        <prim-key field="productStoreId"/>
+    </entity>
+    
+    <entity entity-name="BizDefaultSenderInfo" package-name="org.weidian.order.store" title="DefaultSenderInfo Entity">
+        <field name="defaultSenderInfoId" type="id-ne"/>
+        <field name="productStoreId" type="id"/>
+        <!--寄件人信息-->
+        <field name="senderName" type="value">
+            <description>寄件人姓名</description>
+        </field>
+        <field name="senderPhone" type="value">
+            <description>寄件人电话</description>
+        </field>
+        <field name="senderProvince" type="value">
+            <description>寄件人所在省</description>
+        </field>
+        <field name="senderCity" type="value">
+            <description>寄件人所在市</description>
+        </field>
+        <field name="senderRegion" type="value">
+            <description>寄件人所在区</description>
+        </field>
+        <field name="senderAddress" type="value">
+            <description>寄件人地址</description>
+        </field>
+        <field name="senderPost" type="value">
+            <description>寄件人邮政编码</description>
+        </field>
+
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+
+        <prim-key field="defaultSenderInfoId"/>
+        <relation type="one" fk-name="DFL_SI_PDSTR" rel-entity-name="BizProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizOrderType"
+            package-name="org.weidian.order.order"
+            default-resource-name="OrderEntityLabels"
+            title="Order Type Entity">
+        <field name="orderTypeId" type="id-ne"/>
+        <field name="parentTypeId" type="id-ne"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="orderTypeId"/>
+        <relation type="one" fk-name="ORDER_TYPE_PARENT" title="Parent" rel-entity-name="BizOrderType">
+            <key-map field-name="parentTypeId" rel-field-name="orderTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizOrder"
+            package-name="org.weidian.order.order"
+            never-cache="true"
+            title="Order Header Entity">
+        <field name="orderId" type="id-ne"/>
+        <field name="orderTypeId" type="id"/>
+        <field name="productStoreId" type="id"/>
+        <field name="agentId" type="id"/>
+        <field name="orderName" type="name"/>
+        <field name="externalId" type="id"/>
+        <field name="orderDate" type="date-time"/>
+        <field name="priority" type="indicator">
+            <description>Sets priority for Inventory Reservation</description>
+        </field>
+        <field name="pickSheetPrintedDate" type="date-time">
+            <description>This will be set to a date when pick sheet of the order is printed</description>
+        </field>
+        <field name="statusId" type="id"/>
+        <field name="createdBy" type="id-vlong"/>
+
+        <field name="remainingSubTotal" type="currency-amount"/>
+        <field name="grandTotal" type="currency-amount"/>
+        <field name="expressType" type="name">
+            <description>快递公司编号</description>
+        </field>
+        <field name="expressNo" type="value">
+            <description>快递单号</description>
+        </field>
+
+        <field name="price" type="currency-amount">
+            <description>商品总价格，不包含运费</description>
+        </field>
+        <field name="expressFee" type="currency-amount">
+            <description>快递费用</description>
+        </field>
+
+        <field name="totalPrice" type="currency-amount">
+            <description>订单总价 包含运费</description>
+        </field>
+
+        <field name="originalTotalPrice" type="currency-amount">
+            <description>订单原价格，包括运费 （此字段用于记录订单被创建时的价格,包含运费，减去优惠后的价格）</description>
+        </field>
+
+        <field name="discountAmount" type="currency-amount">
+            <description>优惠金额，discount_amount目前只适用于使用“店铺优惠券”的订单，其他优惠（限时折扣等）返回均为0</description>
+        </field>
+        <field name="totalQuantity" type="fixed-point">
+            <description>商品总数量</description>
+        </field>
+        <!--买家信息-->
+        <field name="buyerSelfAddress" type="value">
+            <description>收货人的街道</description>
+        </field>
+        <field name="buyerProvince" type="value">
+            <description>收货人所在省</description>
+        </field>
+        <field name="buyerCity" type="value">
+            <description>收货人所在市</description>
+        </field>
+        <field name="buyerRegion" type="value">
+            <description>收货人所在区</description>
+        </field>
+        <field name="buyerAddress" type="value">
+            <description>收货地址</description>
+        </field>
+        <field name="buyerPost" type="value">
+            <description>邮政编码</description>
+        </field>
+        <field name="buyerName" type="value">
+            <description>买家姓名</description>
+        </field>
+        <field name="buyerPhone" type="value">
+            <description>收货人电话</description>
+        </field>
+        <field name="buyerNote" type="value">
+            <description>买家备注</description>
+        </field>
+
+        <!--卖家信息-->
+        <field name="sellerNote" type="value">
+            <description>卖家备注</description>
+        </field>
+
+        <!--寄件人信息-->
+        <field name="senderName" type="value">
+            <description>寄件人姓名</description>
+        </field>
+        <field name="senderAddress" type="value">
+            <description>寄件人地址</description>
+        </field>
+        <field name="senderPhone" type="value">
+            <description>寄件人电话</description>
+        </field>
+        <field name="senderPost" type="value">
+            <description>寄件人邮政编码</description>
+        </field>
+
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+
+        <prim-key field="orderId"/>
+        <relation type="one" fk-name="ORDER_HDR_TYPE" rel-entity-name="BizOrderType">
+            <key-map field-name="orderTypeId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_HDR_PDSTR" rel-entity-name="BizProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one-nofk" fk-name="ORDER_HDR_AGENT" rel-entity-name="BizAgent">
+            <key-map field-name="agentId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_HDR_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
+            <key-map field-name="createdBy" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_HDR_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <index name="ORDEREXT_ID_IDX" unique="true">
+            <index-field name="externalId"/>
+        </index>
+    </entity>
+    <entity entity-name="BizOrderNote"
+            package-name="org.weidian.order.order"
+            never-cache="true"
+            title="Order Header Note Entity">
+        <field name="orderId" type="id-ne"/>
+        <field name="note" type="comment"/>
+        <field name="noteDate" type="date-time"/>
+        <prim-key field="orderId"/>
+        <prim-key field="noteId"/>
+        <relation type="one" fk-name="ORDER_HDRNT_HDR" rel-entity-name="BizOrder">
+            <key-map field-name="orderId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizOrderItem"
+            package-name="org.weidian.order.order"
+            never-cache="true"
+            title="Order Item Entity">
+        <field name="orderId" type="id-ne"/>
+        <field name="orderItemSeqId" type="id-ne"/>
+        <field name="externalId" type="id"/>
+        <field name="productId" type="id"/>
+        <!--<field name="productFeatureId" type="id"/>-->
+        <field name="quantity" type="fixed-point" enable-audit-log="true"/>
+        <field name="unitPrice" type="currency-precise" enable-audit-log="true"/>
+        <field name="itemDescription" type="description"/>
+        <field name="comments" type="comment"/>
+
+        <field name="skuId" type="value">
+            <description>商品型号ID</description>
+        </field>
+        <field name="skuTitle" type="name">
+            <description>商品型号名称</description>
+        </field>
+        <field name="skuMerchantCode" type="value">
+            <description>商品型号编码</description>
+        </field>
+        <field name="productCode" type="name">
+            <description>商品编号</description>
+        </field>
+        <field name="url" type="value">
+            <description>商品URL</description>
+        </field>
+        <field name="imgUrl" type="name">
+            <description>商品图URL</description>
+        </field>
+
+        <prim-key field="orderId"/>
+        <prim-key field="orderItemSeqId"/>
+        <relation type="one" fk-name="ORDER_ITEM_HDR" rel-entity-name="BizOrder">
+            <key-map field-name="orderId"/>
+        </relation>
+        <!--<relation type="one" fk-name="ORDER_ITEM_PRODUCT" rel-entity-name="Product">-->
+        <!--<key-map field-name="productId"/>-->
+        <!--</relation>-->
+
+        <!--<relation type="one" fk-name="ORDER_ITEM_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>-->
+
+        <index name="ORDITMEXT_ID_IDX">
+            <index-field name="externalId"/>
+        </index>
+    </entity>
+
+    <entity entity-name="BizOrderStatus"
+            package-name="org.weidian.order.order"
+            never-cache="true"
+            title="Order Status Entity">
+        <field name="orderStatusId" type="id-ne"/>
+        <field name="statusId" type="id"/>
+        <field name="orderId" type="id"/>
+        <field name="orderItemSeqId" type="id"/>
+        <field name="statusDatetime" type="date-time"/>
+        <field name="statusUserLogin" type="id-vlong"/>
+        <field name="changeReason" type="description"/>
+        <prim-key field="orderStatusId"/>
+        <relation type="one" fk-name="ORDER_STTS_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_STTS_OHDR" rel-entity-name="BizOrder">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="BizOrderItem">
+            <key-map field-name="orderId"/>
+            <key-map field-name="orderItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_STTS_USER" rel-entity-name="UserLogin">
+            <key-map field-name="statusUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizOrderBuyerHistory" package-name="org.weidian.order.order" title="Order Buyer History Entity">
+        <field name="orderBuyerHistoryId" type="id-ne"/>
+        <field name="orderId" type="id-ne"/>
+        <field name="orderTypeId" type="id"/>
+
+        <!--买家信息-->
+        <field name="buyerProvince" type="value">
+            <description>收货人所在省</description>
+        </field>
+        <field name="buyerCity" type="value">
+            <description>收货人所在市</description>
+        </field>
+        <field name="buyerRegion" type="value">
+            <description>收货人所在区</description>
+        </field>
+        <field name="buyerSelfAddress" type="value">
+            <description>收货人的街道</description>
+        </field>
+        <field name="buyerAddress" type="value">
+            <description>收货地址</description>
+        </field>
+        <field name="buyerPost" type="value">
+            <description>邮政编码</description>
+        </field>
+        <field name="buyerName" type="value">
+            <description>买家姓名</description>
+        </field>
+        <field name="buyerPhone" type="value">
+            <description>收货人电话</description>
+        </field>
+
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+
+        <prim-key field="orderBuyerHistoryId"/>
+        <relation type="one" fk-name="OBH_ORDER_HDR" rel-entity-name="BizOrder">
+            <key-map field-name="orderId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizAgent" package-name="org.weidian.order.agent" title="Agent Entity">
+        <description>代理</description>
+        <field name="agentId" type="id-ne"/>
+        <field name="productStoreId" type="id" not-null="true"/>
+        <field name="name" type="value">
+            <description>代理姓名</description>
+        </field>
+        <field name="phone" type="value">
+            <description>代理电话</description>
+        </field>
+        <field name="note" type="value">
+            <description>代理备注</description>
+        </field>
+        <field name="statusId" type="id"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+
+        <prim-key field="agentId"/>
+        <relation type="one" fk-name="AGENT_STTS_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="AGENT_PDSTR" rel-entity-name="BizProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizFileUpload" package-name="org.weidian.fileupload">
+        <description>文件上传记录</description>
+        <field name="fileUploadId" type="id-ne"/>
+        <field name="fileUploadEnumTypeId" type="id"/>
+        <field name="productStoreId" type="id"/>
+        <field name="fileUrl" type="url"/>
+        <field name="fileMD5Key" type="value">
+            <description>文件MD5加密字符串,用来校验文件是否重复</description>
+        </field>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong-ne"/>
+        <prim-key field="fileUploadId"/>
+        <relation type="one" fk-name="FLUD_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="fileUploadEnumTypeId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" rel-entity-name="BizProductStore" fk-name="FLUD_PS">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="BizFileUploadOrderBatchSend" package-name="org.weidian.fileupload">
+        <description>订单发货记录</description>
+        <field name="fileUploadOrderBatchSendId" type="id-ne"/>
+        <field name="fileUploadId" type="id"/>
+        <field name="fileUploadEnumTypeId" type="id"/>
+        <field name="productStoreId" type="id"/>
+        <field name="fileUrl" type="url"/>
+        <field name="fileMD5Key" type="value">
+            <description>文件MD5加密字符串,用来校验文件是否重复</description>
+        </field>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong-ne"/>
+        <prim-key field="fileUploadId"/>
+        <relation type="one" fk-name="FLUD_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="fileUploadEnumTypeId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" rel-entity-name="BizProductStore" fk-name="FLUD_PS">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+</entitymodel>

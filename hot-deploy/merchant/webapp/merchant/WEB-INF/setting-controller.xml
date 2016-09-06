@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <description>Merchant Component Site Configuration File</description>
+
+    <request-map uri="editProfile">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editProfile"/>
+    </request-map>
+    <request-map uri="saveProfile">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SettingEvents.groovy" invoke="saveProfile"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 权限管理 -->
+    <request-map uri="listSecurityGroup">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listSecurityGroup"/>
+    </request-map>
+    <request-map uri="gridSecurityGroup">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="gridSecurityGroup"/>
+        <response name="success" type="request" value="gridResponse"/>
+        <response name="error" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="editSecurityGroup">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editSecurityGroup"/>
+    </request-map>
+    <request-map uri="editSecurityGroupQueryPermission">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="editSecurityGroupQueryPermission"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="saveSecurityGroup">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="saveSecurityGroup"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="deleteSecurityGroup">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="deleteSecurityGroup"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- 账号管理 -->
+    <request-map uri="listUserLogin">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listUserLogin"/>
+    </request-map>
+    <request-map uri="editUserLogin">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editUserLogin"/>
+    </request-map>
+    <request-map uri="gridUserLogin">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="gridUserLogin"/>
+        <response name="success" type="request" value="gridResponse"/>
+        <response name="error" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="saveUserLogin">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="saveUserLogin"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="deleteUserLogin">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SecurityEvents.groovy" invoke="deleteUserLogin"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editWeiDian">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editWeiDian"/>
+    </request-map>
+
+    <request-map uri="saveWeiDian">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SettingEvents.groovy" invoke="saveWeiDian"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <request-map uri="editDefaultSenderInfo">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="editDefaultSenderInfo"/>
+    </request-map>
+
+    <request-map uri="saveDefaultSenderInfo">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://merchant/script/org/weidian/merchant/setting/SettingEvents.groovy" invoke="saveDefaultSenderInfo"/>
+        <response name="success" type="request" value="jsonResponse"/>
+        <response name="error" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- View Mappings -->
+    <view-map name="editProfile" type="screen" page="component://merchant/widget/SettingScreens.xml#editProfile"/>
+
+    <view-map name="listSecurityGroup" type="screen" page="component://merchant/widget/SettingScreens.xml#listSecurityGroup"/>
+    <view-map name="editSecurityGroup" type="screen" page="component://merchant/widget/SettingScreens.xml#editSecurityGroup"/>
+
+    <view-map name="listUserLogin" type="screen" page="component://merchant/widget/SettingScreens.xml#listUserLogin"/>
+    <view-map name="editUserLogin" type="screen" page="component://merchant/widget/SettingScreens.xml#editUserLogin"/>
+
+    <view-map name="editWeiDian" type="screen" page="component://merchant/widget/SettingScreens.xml#editWeiDian"/>
+    <view-map name="editDefaultSenderInfo" type="screen" page="component://merchant/widget/SettingScreens.xml#editDefaultSenderInfo"/>
+</site-conf>

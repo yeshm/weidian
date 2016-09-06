@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <description>Admin Component Site Configuration File</description>
+    
+    <!-- Request Mappings -->
+    <request-map uri="listMerchant">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="listMerchant"/>
+    </request-map>
+    <request-map uri="gridMerchant">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/merchant/MerchantEvents.groovy" invoke="gridMerchant"/>
+        <response name="success" type="request" value="gridResponse"/>
+    </request-map>
+    <request-map uri="saveMerchant">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/merchant/MerchantEvents.groovy" invoke="saveMerchant"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="getMerchant">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/merchant/MerchantEvents.groovy" invoke="getMerchant"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+    <request-map uri="deleteMerchant">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://admin/script/org/weidian/admin/merchant/MerchantEvents.groovy" invoke="deleteMerchant"/>
+        <response name="success" type="request" value="jsonResponse"/>
+    </request-map>
+
+    <!-- View Mappings -->
+    <view-map name="listMerchant" type="screen" page="component://admin/widget/MerchantScreens.xml#listMerchant"/>
+</site-conf>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="demo-main-decorator">
+        <section>
+            <actions>
+                <set field="layoutSettings.styleSheets[+0]" value="/ext/assets/bui/1.0.13/css/default/dpl-min.css"/>
+                <set field="layoutSettings.styleSheets[+1]" value="/ext/assets/bui/1.0.13/css/default/bui-min.css"/>
+                <!--<set field="layoutSettings.styleSheets[+0]" value="http://g.alicdn.com/bui/bui/1.0.13/css/bs3/dpl.css"/>-->
+                <!--<set field="layoutSettings.styleSheets[+1]" value="http://g.alicdn.com/bui/bui/1.0.13/css/bs3/bui.css"/>-->
+                <set field="layoutSettings.styleSheets[+2]" value="/ext/assets/bui/1.0.13/css/main-min.css"/>
+
+                <!--<set field="layoutSettings.javaScripts[+0]" value="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"/>-->
+                <!--<set field="layoutSettings.javaScripts[+1]" value="http://g.alicdn.com/bui/bui/1.0.13/seed-min.js"/>-->
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.10.2.min.js"/>
+                <set field="layoutSettings.javaScripts[+1]" value="/ext/assets/bui/1.0.13/seed-min.js?t=201401242343"/>
+                <set field="layoutSettings.javaScripts[+2]" value="/ext/assets/bui/1.0.13/config.js"/>
+
+                <!--<set field="layoutSettings.javaScripts[+1]" value="/ext/assets/bui/1.0.13/bui.js"/>-->
+                <!--<set field="layoutSettings.javaScripts[+2]" value="/ext/assets/bui/1.0.13/config.js"/>-->
+
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/bui/header.ftl"/></html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/includes/bui/footer.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="demo">
+        <section>
+            <widgets>
+                <decorator-screen name="demo-main-decorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://extcommon/webapp/extcommon/demo/demo.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="websocket">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://extcommon/webapp/extcommon/demo/websocket/websocket.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

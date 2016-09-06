@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <!--组件基本权限-->
+    <SecurityPermission description="View operations in the Admin Component." permissionId="ADMIN_VIEW"/>
+
+
+    <!-- 商家 -->
+    <SecurityPermission description="商家" permissionId="MERCHANT" sequenceNum="4" componentId="admin" permissionLevel="1"/>
+    <SecurityPermission description="商家管理" permissionId="MERCHANT_MANAGE" parentPermissionId="MERCHANT" sequenceNum="1" componentId="admin" permissionLevel="2"/>
+    <SecurityPermission description="商家列表" permissionId="MERCHANT_LIST" parentPermissionId="MERCHANT_MANAGE" menuLinkUrl="listMerchant" sequenceNum="1" componentId="admin" permissionLevel="3"/>
+
+    <!-- 设置 -->
+    <SecurityPermission description="设置" permissionId="SETTING" sequenceNum="21" componentId="admin" permissionLevel="1" isNewMenuGroup="Y"/>
+
+    <SecurityPermission description="账号设置" permissionId="SETTING_ACCOUNT" parentPermissionId="SETTING" sequenceNum="1" componentId="admin" permissionLevel="2"/>
+    <SecurityPermission description="资料修改" permissionId="SETTING_ACCOUNT_PERSON" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="editProfile" sequenceNum="1" componentId="admin" permissionLevel="3"/>
+    <SecurityPermission description="密码修改" permissionId="SETTING_ACCOUNT_PASSWORD" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="updatePassword" sequenceNum="2" componentId="admin" permissionLevel="3"/>
+    <SecurityPermission description="管理员" permissionId="SETTING_ACCOUNT_USER_LOGIN" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listUserLogin" sequenceNum="3" componentId="admin" permissionLevel="3"/>
+    <SecurityPermission description="权限组" permissionId="SETTING_ACCOUNT_SECURITY_GROUP" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listSecurityGroup" sequenceNum="4" componentId="admin" permissionLevel="3"/>
+    <SecurityPermission description="操作日志" permissionId="SETTING_ACCOUNT_OPERATE_LOG" parentPermissionId="SETTING_ACCOUNT" menuLinkUrl="listUserOperateLog" sequenceNum="5" componentId="admin" permissionLevel="3"/>
+
+    <SecurityPermission description="系统设置" permissionId="SETTING_SYSTEM" parentPermissionId="SETTING" sequenceNum="2" componentId="admin" permissionLevel="2"/>
+    <SecurityPermission description="七牛接口" permissionId="SETTING_SYSTEM_QN" parentPermissionId="SETTING_SYSTEM" menuLinkUrl="editQiniuCloudConfig" sequenceNum="8" componentId="admin" permissionLevel="3"/>
+
+    <SecurityGroup groupId="ADMIN_ADMIN" description="总部"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="ADMIN_VIEW"/>
+
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="MERCHANT"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="MERCHANT_MANAGE"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="MERCHANT_LIST"/>
+
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT_PERSON"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT_PASSWORD"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT_USER_LOGIN"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT_SECURITY_GROUP"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_ACCOUNT_OPERATE_LOG"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_SYSTEM"/>
+    <SecurityGroupPermission groupId="ADMIN_ADMIN" permissionId="SETTING_SYSTEM_QN"/>
+
+
+    <UserLoginSecurityGroup groupId="ADMIN_ADMIN" userLoginId="super" fromDate="2001-01-01 12:00:00.0"/>
+</entity-engine-xml>

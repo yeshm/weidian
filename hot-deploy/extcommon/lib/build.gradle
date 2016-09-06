@@ -1,0 +1,55 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+def jacksonVersion = "2.5.3"
+def elasticsearchVersion = "2.1.0"
+def jtsVersion = "1.13"
+def htmlparserVersion = "2.1"
+def poiVersion = "3.12-beta1"
+def urlrewritefilterVersion = "4.0.4"
+def p6spyVersion = "2.1.4"
+def jedisVersion = "2.7.3"
+def jaxenVersion = "1.1.6"
+def activemqVersion = "5.12.1"
+def httpclientVersion = "4.5.2"
+
+repositories {
+    maven { url 'http://nexus.juweitu.com:8081/content/groups/public' }
+    mavenCentral()
+}
+
+dependencies {
+    compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-xml-provider:${jacksonVersion}") {
+        exclude group: 'javax.xml.stream'
+    }
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:${jacksonVersion}"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:${jacksonVersion}"
+
+    compile "com.vividsolutions:jts:${jtsVersion}"
+
+    compile "org.htmlparser:htmlparser:${htmlparserVersion}"
+
+    compile("org.apache.poi:poi-ooxml:${poiVersion}") {
+        exclude group: 'commons-codec'
+    }
+
+    compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    compile "org.apache.httpcomponents:httpmime:${httpclientVersion}"
+
+    compile 'dom4j:dom4j:1.6.1'
+
+    compile 'joda-time:joda-time:2.9.4'
+
+}
+
+task deleteJars(type: Delete) {
+    delete fileTree(dir: ".", exclude: "build.gradle")
+}
+
+task downloadJars(type: Copy, dependsOn: deleteJars) {
+    from configurations.compile
+    into '.'
+}
+
+//gradle dependencies

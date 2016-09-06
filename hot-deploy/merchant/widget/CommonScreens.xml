@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+
+    <screen name="MerchantMainDecorator">
+        <section>
+            <actions>
+
+            </actions>
+            <widgets>
+                <decorator-screen name="ExtMainDecorator" location="component://extcommon/widget/BuiCommonScreens.xml">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="MerchantPageDecorator">
+        <section>
+            <widgets>
+                <section>
+                    <widgets>
+                        <decorator-screen name="ExtPageDecorator" location="component://extcommon/widget/BuiCommonScreens.xml">
+                            <decorator-section name="body">
+                                <decorator-section-include name="body"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="MerchantPageDecorator">
+        <section>
+            <widgets>
+                <section>
+                    <widgets>
+                        <decorator-screen name="ExtPageDecorator" location="component://extcommon/widget/BuiCommonScreens.xml">
+                            <decorator-section name="body">
+                                <decorator-section-include name="body"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="MerchantUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.AdminCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AdminCompanySubtitle" global="true"/>
+
+                <set field="activeApp" value="admin" global="true"/>
+                <set field="applicationMenuName" value="MainAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://admin/widget/AdminMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.AdminApplication}" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="login">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin" />
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://merchant/webapp/merchant/common/login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

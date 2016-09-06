@@ -1,0 +1,21 @@
+1.订单api vdian.order.list.get
+
+订单状态编号
+
+0 (下单)	unpay (未付款)
+1 (未付款)	unpay (未付款)
+2 (已付款)	pay（待发货）
+3 (已发货)	finish（订单完成）
+7 (退款)	close（订单关闭）
+8 (订单关闭)	close（订单关闭）
+
+目前订单列表中的status和订单详情中的status输出不一致，请注意区别,http://wiki.open.weidian.com/api/56#status_0
+
+
+获取订单列表中的status	获取订单详情中的status
+0 (下单)	unpay (未付款)
+1 (未付款)	unpay (未付款)
+2 (已付款)	pay（待发货）
+3 (已发货)	finish（订单完成）
+7 (退款)	close（订单关闭）
+8 (订单关闭)	close（订单关闭）
