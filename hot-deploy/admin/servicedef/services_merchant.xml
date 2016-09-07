@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="bizCreateMerchant" engine="groovy"
-        location="component://admin/script/org/weidian/admin/Merchant/MerchantServices.groovy" invoke="createMerchant" auth="true">
+        location="component://admin/script/org/weidian/admin/merchant/MerchantServices.groovy" invoke="createMerchant" auth="true">
         <description>Create a Merchant</description>
         <attribute name="storeName" type="String" mode="IN"/>
         <attribute name="telephone" type="String" mode="IN"/>
