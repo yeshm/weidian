@@ -59,7 +59,7 @@ public String gridOrder() {
         }
 
         temp.putAll(order)
-        temp.orderItemInfo = StringUtils.join(orderItemInfoList, ",")
+        temp.orderItemInfo = StringUtils.join(orderItemInfoList, "  ")
         temp.statusDesc = OrderStatus.getDesc(order.statusId)
         temp.buyerFullAddress = order.buyerName + " " + order.buyerPhone + " " + order.buyerAddress
 
