@@ -221,11 +221,11 @@ public String exportPaidOrderDeliveryAddress() {
 
         def orderItemList = ExtEntityUtil.findList(delegator, "BizOrderItem", [orderId: orderId])
         for (GenericValue orderItem : orderItemList) {
-            def skuTitle = orderItem.get("skuTitle")
-            def enumeration = ExtEntityUtil.findOneCache(delegator, "Enumeration", [enumId: "SKU_" + skuTitle])
-            orderItemInfoList.add(((enumeration?.description) ?: skuTitle) + "*" + orderItem.getBigDecimal("quantity").intValue())
+            def skuMerchantCode = orderItem.skuMerchantCode
+            def enumeration = ExtEntityUtil.findOneCache(delegator, "Enumeration", [enumId: "SKU_" + skuMerchantCode])
+            orderItemInfoList.add(((enumeration?.description) ?: skuMerchantCode) + "*" + orderItem.getBigDecimal("quantity").intValue())
         }
-        def orderItemInfo = StringUtils.join(orderItemInfoList, ",")
+        def orderItemInfo = StringUtils.join(orderItemInfoList, "  ")
 
         def agent = ExtEntityUtil.findOneCache(delegator, "BizAgent", [agentId: agentId])
 
@@ -249,30 +249,30 @@ public String exportPaidOrderDeliveryAddress() {
         dataList.add(defaultSenderInfo.senderCity)
         dataList.add(defaultSenderInfo.senderRegion)
         dataList.add(defaultSenderInfo.senderAddress)
-        dataList.add(defaultSenderInfo.senderPost)
+        dataList.add("")    //dataList.add(defaultSenderInfo.senderPost)
 
         //"收件人姓名", "收件人电话", "收件人手机", "收件人地址", "收件邮政编码",
         dataList.add(order.buyerName)
         dataList.add("")
         dataList.add(order.buyerPhone)
         dataList.add(order.buyerAddress)
-        dataList.add(order.buyerPost)
+        dataList.add("")    //dataList.add(order.buyerPost)
 
         //"运费", "订单金额", "商品名称", "商品编码", "销售属性", "商品金额", "数量", "备注"
         dataList.add("")
-        dataList.add(order.totalPrice)
+        dataList.add("")    //dataList.add(order.totalPrice)
         dataList.add("")
         dataList.add("")
         dataList.add(orderItemInfo)
-        dataList.add(order.price)
-        dataList.add(order.totalQuantity)
+        dataList.add("")    //dataList.add(order.price)
+        dataList.add("")    //dataList.add(order.totalQuantity)
         dataList.add("")
 
         availableCount++
         bodyList.add(dataList)
     }
 
-    def fileName = "待发货订单" + ExtUtilDateTime.formatDate2String(new Date(), "yyyyMMddHHmmss")
+    def fileName = "微店待发货订单" + ExtUtilDateTime.formatDate2String(new Date(), "yyyyMMddHHmmss")
 
     ExcelUtil.createExcelFileOutputResponse(fileName, "Sheet1", excelHeaderList, bodyList, true, response)
 

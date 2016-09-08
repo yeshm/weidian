@@ -1,7 +1,7 @@
 package org.weidian.merchant.weidian
 
-import com.fasterxml.jackson.databind.JsonNode
 import com.ibm.icu.util.Calendar
+import com.weidian.open.sdk.response.oauth.OAuthResponse
 import com.weidian.open.sdk.util.SystemConfig
 import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilDateTime
@@ -55,12 +55,15 @@ public Map refreshWeiDianAccessToken() {
     def weiDian = ExtEntityUtil.getOnly(delegator, "BizWeiDian", ["productStoreId": productStoreId])
     if (UtilValidate.isEmpty(weiDian)) return ServiceUtil.returnError("找不到微店")
 
+    def results = ServiceUtil.returnSuccess()
+    results.productStoreId = productStoreId
+
     String appkey = weiDian.getString("appkey")
     String secret = weiDian.getString("secret")
 
     if (UtilValidate.isWhitespace(appkey) || UtilValidate.isWhitespace(secret)) {
         Debug.logError("appkey or secret is empty, appkey:${appkey}, secret:${secret}", "refreshWeixinAccessToken")
-        return ServiceUtil.returnSuccess()
+        return results
     }
 
     String url = String.format(SystemConfig.PERSONAL_TOKEN_URL_TEMPLATE, appkey, secret)
@@ -69,23 +72,19 @@ public Map refreshWeiDianAccessToken() {
     if (!WeiDianApiHelper.isSuccess(httpResult)) return WeiDianApiHelper.transToErrorResults(httpResult)
 
     String responseString = httpResult.get("responseString");
+    OAuthResponse oAuthResponse = AppUtil.fromJson(responseString, OAuthResponse.class)
 
-    JsonNode json = AppUtil.fromJson(responseString, JsonNode.class);
-    JsonNode result = json.get("result")
-    JsonNode status = json.get("status")
+    if(oAuthResponse.getStatus().getStatusCode() != 0){
+        Debug.logError(oAuthResponse.getStatus().getStatusReason(), "")
+        return results
+    }
 
-    def accessToken = result.get("access_token").asText()
-    def expireIn = result.get("expire_in").asText()
+    def accessTokenExpirationDate = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.SECOND, oAuthResponse.getResult().getExpire_in())
 
-    def accessTokenExpirationDate = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.SECOND, Integer.parseInt(expireIn))
-
-    weiDian.accessToken = accessToken
+    weiDian.accessToken = oAuthResponse.getResult().getAccessToken()
     weiDian.accessTokenExpirationDate = accessTokenExpirationDate
     weiDian.lastModifiedDate = UtilDateTime.nowTimestamp()
     weiDian.store()
-
-    def results = ServiceUtil.returnSuccess()
-    results.productStoreId = productStoreId
 
     return results
 }

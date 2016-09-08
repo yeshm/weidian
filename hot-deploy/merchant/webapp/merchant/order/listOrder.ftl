@@ -70,7 +70,7 @@ under the License.
                 </select>
             </div>
         </div>
-        <div class="control-group span8">
+        <div class="control-group span8" style="display: none">
             <label class="control-label">类型：</label>
 
             <div class="controls">
@@ -458,8 +458,8 @@ under the License.
         var gridCfg = Search.createGridCfg(columns, {
             tbar: {
                 items: [
-                    {text: '添加线下订单', btnCls: 'button button-small', handler: addManualOrder},
-                    {text: '<i class="icon-remove"></i>删除', btnCls: 'button button-small', handler: delFunction},
+//                    {text: '添加线下订单', btnCls: 'button button-small', handler: addManualOrder},
+//                    {text: '<i class="icon-remove"></i>删除', btnCls: 'button button-small', handler: delFunction},
                     {text: '导出筛选的待发货订单', btnCls: 'button button-small', handler: exportPaidOrderDeliveryAddress}
                 ]
             },
@@ -559,8 +559,6 @@ under the License.
         function exportPaidOrderDeliveryAddress() {
             var formId = "searchForm";
             var str = $("#" + formId).serialize();
-
-            alert(str);
 
             window.location.href = "<@ofbizUrl>exportPaidOrderDeliveryAddress</@ofbizUrl>?"+str;
         }
